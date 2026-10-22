@@ -1,10 +1,13 @@
 <script setup>
 import { computed, ref, onMounted } from 'vue'
 
+// 雲端後端 API 基底網址
+const API_BASE_URL = 'https://lost-and-found-workspace.onrender.com/api'
+
 // 載入後端資料庫的物品清單
 async function fetchItems() {
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/items')
+    const response = await fetch(`${API_BASE_URL}/items`)
     if (response.ok) {
       const data = await response.json()
       items.value = data
@@ -33,7 +36,7 @@ async function deleteItem(id) {
   }
 
   try {
-    const response = await fetch(`http://127.0.0.1:8000/api/items/${id}`, {
+    const response = await fetch(`${API_BASE_URL}/items/${id}`, {
       method: 'DELETE',
       headers: {
         'Accept': 'application/json'
@@ -93,7 +96,7 @@ async function handleLoginSubmit() {
   }
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/login', {
+    const response = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -131,7 +134,7 @@ async function handleRegisterSubmit() {
   }
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/register', {
+    const response = await fetch(`${API_BASE_URL}/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -246,7 +249,7 @@ const paginatedItems = computed(() => {
   return filteredItems.value.slice(start, end)
 })
 
-// 💡 串接後端 API 的新增函式（已移除 location.reload，改用即時更新）
+// 串接後端 API 的新增函式
 async function submitItem() {
   let errors = []
 
@@ -266,7 +269,7 @@ async function submitItem() {
   }
 
   try {
-    const response = await fetch('http://127.0.0.1:8000/api/items', {
+    const response = await fetch(`${API_BASE_URL}/items`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -673,7 +676,7 @@ async function submitItem() {
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700=">確認密碼 (Confirm Password) *</label>
+            <label class="block text-xs font-bold text-slate-700 mb-1">確認密碼 (Confirm Password) *</label>
             <input
               v-model="registerPasswordConfirm"
               type="password"
