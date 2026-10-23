@@ -37,3 +37,82 @@
 ```bash
 git clone [https://github.com/yuhsun0313-oss/lost-and-found-workspace.git](https://github.com/yuhsun0313-oss/lost-and-found-workspace.git)
 cd lost-and-found-workspace
+
+🎨 啟動前端 (Frontend) — 主要開發
+進入前端資料夾並安裝套件：
+
+Bash
+cd frontend
+npm install
+啟動前端開發伺服器：
+
+Bash
+npm run dev
+預覽網頁：
+終端機會顯示例如 http://localhost:5173/ 的連結，在瀏覽器開啟即可！
+
+💡 說明：
+目前前端 App.vue 中的 API 已預設連線至 Render 雲端後端。
+本機前端發送的請求與新增的資料，會直接更新到 Render 雲端資料庫！
+
+⚙️ 啟動後端 (Backend) — 如需修改後端才執行
+如果需要修改或測試後端程式碼：
+
+進入後端資料夾並安裝套件：
+
+Bash
+cd backend
+composer install
+複製環境變數設定檔：
+
+Bash
+cp .env.example .env
+php artisan key:generate
+啟動 Laravel 本機伺服器：
+
+Bash
+php artisan serve
+後端網址預設為 http://127.0.0.1:8000。
+
+🗄️ 查看與管理雲端資料庫 (DBeaver)
+若需要直觀地檢視或修改 Render 雲端資料庫資料，請使用 DBeaver 設定以下連線：
+
+連線類型：PostgreSQL
+
+Connect by：Host
+
+Host：dpg-dbd3f6on74is7382fong-a.singapore-postgres.render.com
+
+Port：5432
+
+Database：lost_and_found_ql2o
+
+Username：lost_and_found_ql2o_user
+
+Password：wZLyKDGoJpKvXZFiJbjJrUTKcrUc6v1a
+
+🔄 如何修改程式碼並更新到雲端？
+在本地端修改程式碼後，只要推送到 GitHub main 分支，雲端平台就會自動觸發部署更新！
+
+開發前先拉取最新程式碼：
+
+Bash
+git pull origin main
+進行修改並完成測試。
+
+提交並推送到 GitHub：
+
+Bash
+git add .
+git commit -m "描述修改內容 (例：新增失物分類搜尋功能)"
+git push origin main
+自動部署：
+
+前端修改（frontend/）會由 Vercel 自動更新上線。
+
+後端修改（backend/）會由 Render 自動重新建置。
+
+🤝 協作規範
+每次開始寫程式前，請務必先執行 git pull origin main，避免衝突。
+
+請勿隨意刪除雲端資料庫中的重要測試資料。
