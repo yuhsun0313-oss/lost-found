@@ -1,116 +1,79 @@
-# ◈ 校園失物雷達系統 (Campus Lost & Found)
+# 🔍 失物招領系統 (Lost and Found System)
 
-本專案是一個整合前後端的校園失物招領平台，旨在協助校園師生快速刊登、搜尋、配對與管理遺失物或拾獲物。系統支援圖片上傳預覽、帳號驗證與即時資料庫互動。
+本專案為失物招領系統，採用前後端分離架構，並已全面部署至雲端平台。
 
-## 🛠️ 系統技術堆疊 (Tech Stack)
+---
 
-- **前端 (Frontend)**：Vue 3 (Composition API) + Tailwind CSS + Vite
-- **後端 (Backend)**：Laravel (PHP) + MySQL
-- **AI 擴充規劃**：YOLO / Ollama (影像辨識與智慧標籤)
-- **版控協作 (Version Control)**：Git & GitHub
+## 🌐 雲端服務與線上網址
 
-## 📂 專案資料夾結構
+- **前端網站 (Vercel)**：`https://你的專案名稱.vercel.app` *(請替換為你的 Vercel 網址)*
+- **後端 API (Render)**：`https://lost-and-found-workspace.onrender.com/api`
+- **雲端資料庫 (Render PostgreSQL)**：`lost_and_found_ql2o`
 
-```
+---
+
+## 🛠️ 專案目錄結構
+
+```text
 lost-and-found-workspace/
-├── backend/       # Laravel 後端專案
-├── frontend/      # Vue 前端專案
-└── README.md      # 專案說明文件
-```
+├── frontend/         # Vue 3 + Vite 前端專案
+└── backend/          # Laravel 後端 API 專案
+🚀 組員快速上手（本地開發環境設定）
+如果你要在本機（Local）進行開發與測試，請跟著以下步驟設定：
 
-## 🚀 環境建立與執行完整指南
+1. 複製專案 (Clone)
+Bash
+git clone [https://github.com/yuhsun0313-oss/lost-and-found-workspace.git](https://github.com/yuhsun0313-oss/lost-and-found-workspace.git)
+cd lost-and-found-workspace
+2. 前端環境設定 (Frontend)
+Bash
+cd frontend
+npm install
+npm run dev
+💡 注意事項：
+目前前端 App.vue 中的 API 網址已預設指向 Render 雲端後端。
+本機啟動後，直接新增、修改資料，就會同步更新到雲端資料庫！
 
-請依照以下步驟，在各自的本機電腦設定並啟動專案：
+3. 查看與管理雲端資料庫 (DBeaver)
+若組員需要直接查看或修改雲端資料庫內容，請使用 DBeaver 並建立以下連線：
 
-### 1. 複製專案至本地
+連線類型：PostgreSQL
 
-打開終端機（PowerShell / Git Bash），執行以下指令將 GitHub 專案複製到本機：
+Connect by：Host
 
-```
-git clone https://github.com/YourAccount/lost-and-found-system.git
-cd lost-and-found-system
-```
+Host：dpg-dbd3f6on74is7382fong-a.singapore-postgres.render.com
 
-### 2. 後端設定與啟動 (Laravel)
+Port：5432
 
-1. **進入後端資料夾並安裝 PHP 套件**：
+Database：lost_and_found_ql2o
 
-   ```
-   cd backend
-   composer install
-   ```
-2. **建立與設定 `.env` 檔案**： 複製環境設定範本：
+Username：lost_and_found_ql2o_user
 
-   ```
-   cp .env.example .env
-   ```
-   使用 VS Code 或記事本開啟 `backend/.env`，修改 MySQL 資料庫連線設定（預設使用 Laragon/XAMPP）：
+Password：wZLyKDGoJpKvXZFiJbjJrUTKcrUc6v1a
 
-   ```
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=lost_and_found
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-   *(請先開啟 Laragon/XAMPP 的 MySQL，並手動建立一個名為 `lost_and_found` 的資料庫)*
-3. **產生應用程式金鑰**：
+🔄 如何修改程式碼並更新到雲端？
+組員在本地端修改程式碼後，只要推送到 GitHub，雲端平台就會自動觸發更新（Auto-Deploy）！
 
-   ```
-   php artisan key:generate
-   ```
-4. **建立資料庫資料表 (Migration)**：
+修改與推送流程：
+拉取最新程式碼（開發前先更新）：
 
-   ```
-   php artisan migrate
-   ```
-5. **啟動後端 API 伺服器**：
-
-   ```
-   php artisan serve
-   ```
-   *後端 API 服務將運行於：`http://127.0.0.1:8000`*
-
-### 3. 前端設定與啟動 (Vue)
-
-開啟**第二個**終端機視窗，進入前端資料夾：
-
-1. **安裝 NPM 套件**：
-
-   ```
-   cd lost-and-found-system/frontend
-   npm install
-   ```
-2. **啟動前端開發伺服器**：
-
-   ```
-   npm run dev
-   ```
-   *前端畫面將運行於：`http://localhost:5173`*
-
-## 💡 日常開發與 Git 協作流程
-
-組員在開發新功能或更新程式碼時，請遵守以下流程：
-
-### 取得最新程式碼 (開工前)
-
-```
+Bash
 git pull origin main
-```
+進行修改與測試（在本地測試功能無誤）。
 
-### 上傳新進度 (完成功能後)
+提交並推送到 GitHub：
 
-```
+Bash
 git add .
-git commit -m "feat: 新增 [功能名稱]"
+git commit -m "描述你這次改了什麼 (例如: 新增搜尋過濾功能)"
 git push origin main
-```
+自動部署生效：
 
-## 📌 系統已完成功能清單
+前端修改（frontend/）：Vercel 偵測到 main 分支更新後，約 1 分鐘內會自動完成部署並更新線上網站。
 
-- [x] **失物/拾獲刊登**：填寫名稱、分類、地點、時間與圖片。
-- [x] **圖片上傳預覽**：支援格式檢查與 Base64 即時預覽。
-- [x] **非同步 API 串接**：前後端以 API 通訊，自動寫入/讀取 MySQL 資料庫。
-- [x] **即時刪除與管理**：卡片即時刪除，並同步自資料庫移除。
-- [x] **使用者驗證機制**：包含隨機圖形/字串驗證碼與登入流程。
+後端修改（backend/）：Render 會自動抓取最新程式碼重新建置並上線。
+
+🤝 協作規範與注意事項
+請勿隨意刪除雲端資料庫中的重要測試資料。
+
+每次開發前請務必執行 git pull origin main，避免程式碼衝突。
